@@ -4,7 +4,13 @@ import math
 
 class ApplicantPool:
 
-    def __init__(self, pool_size, look_portion=37):
+
+
+
+
+
+
+    def __init__(self, pool_size, app_list = [], look_portion=37):
         """
         Constructor for the ApplicantPool class.
         :param pool_size: The total number of applicants in the pool.
@@ -57,7 +63,6 @@ class ApplicantPool:
         """
         self.number_of_look_applicants = math.ceil(self.how_long_to_look * self.applicant_pool_size / 100)
         self.number_of_leap_applicants = self.applicant_pool_size - self.number_of_look_applicants
-
 
     def create_look_list(self):
         """
