@@ -105,5 +105,6 @@ class ApplicantPool:
         else:
             self.chosen_applicant_index = self.number_of_look_applicants + chosen_applicant[0][0]
             self.chosen_applicant_rank = self.app_pool[self.chosen_applicant_index]
+            self.last_candidate_chosen = False
 
 
