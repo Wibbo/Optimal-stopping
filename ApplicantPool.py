@@ -27,6 +27,7 @@ class ApplicantPool:
         self.number_of_leap_applicants = None
         self.last_candidate_chosen = None
         self.top_applicant_chosen = None
+        self.number_of_interviews = None
 
         # Create an integer array and shuffle the contents.
         # The value of each array element represents the relative ranking of each applicant.
@@ -101,6 +102,7 @@ class ApplicantPool:
             # If we can't find a better applicant in the leap list then the job will
             # automatically go to the last candidate. No matter how good they are.
             self.chosen_applicant_index = self.applicant_pool_size - 1
+            self.number_of_interviews = self.chosen_applicant_index + 1
             self.chosen_applicant_rank = self.app_pool[-1]
             self.last_candidate_chosen = True
         else:
