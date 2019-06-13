@@ -26,6 +26,7 @@ class ApplicantPool:
         self.number_of_look_applicants = None
         self.number_of_leap_applicants = None
         self.last_candidate_chosen = None
+        self.top_applicant_chosen = None
 
         # Create an integer array and shuffle the contents.
         # The value of each array element represents the relative ranking of each applicant.
@@ -107,4 +108,5 @@ class ApplicantPool:
             self.chosen_applicant_rank = self.app_pool[self.chosen_applicant_index]
             self.last_candidate_chosen = False
 
-
+        # Record if the chosen applicant is also the top candidate.
+        self.top_applicant_chosen = (self.chosen_applicant_rank == self.highest_rank)
