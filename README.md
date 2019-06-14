@@ -3,7 +3,7 @@
 ## A little about the theory
 Based on the rules below, optimal stopping provides a strategy for hiring the top applicant in a given applicant pool. The approach that this simulation tests, should find the best applicant, on average, 37% of the time. 
 
-!(https://github.com/Wibbo/Optimal-stopping/blob/master/images/Optimal_Stopping_Flow_01.jpg?raw=true "Optimal stopping process")
+![Process flow diagram](https://github.com/Wibbo/Optimal-stopping/blob/master/images/Optimal_Stopping_Flow_01.jpg)
 
 ## Rules of the simulation
 This simulator uses a 'look before leaping' algorithm to try and optimise the process of hiring a great data 

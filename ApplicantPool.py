@@ -4,12 +4,6 @@ import math
 
 class ApplicantPool:
 
-
-
-
-
-
-
     def __init__(self, pool_size, app_list = [], look_portion=37):
         """
         Constructor for the ApplicantPool class.
