@@ -1,4 +1,4 @@
-# HELLO SIMON
+# OPTIMAL STOPPING
 # Simulating recruitment campaigns using an optimal stopping strategy
 
 ## A little about the theory
