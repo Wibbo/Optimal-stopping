@@ -4,13 +4,14 @@ import math
 
 class Campaign:
 
-    def __init__(self, applicant_count):
+    def __init__(self, applicant_count, count):
 
         """
         Constructor for campaigns.
         Basically this handles everything for now/
         :param applicant_count: The number of applicants.
         """
+        self.camp_id = count
         self.applicant_count = applicant_count
         self.applicant_pool = np.arange(applicant_count)
         self.look_for = 37
@@ -60,8 +61,15 @@ class Campaign:
             self.offered_to_value = self.lowest_leap_value
             self.offered_to_last = True
 
+        if self.offered_to_value == 0:
+            self.best_chosen = 1
+        else:
+            self.best_chosen = 0
+
+
     def to_dict(self):
         return {
+            'id': self.camp_id,
             'applicant_count': self.applicant_count,
             'look_for': self.look_for,
             'look_length': self.look_length,
@@ -69,6 +77,7 @@ class Campaign:
             'offered_to_last': self.offered_to_last,
             'offered_to_value': self.offered_to_value,
             'offered_to_index': self.offered_to_index,
+            'best_chosen': self.best_chosen,
         }
 
 
