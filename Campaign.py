@@ -7,10 +7,14 @@ class Campaign:
     def __init__(self, applicant_count, count):
 
         """
-        Constructor for campaigns.
-        Basically this handles everything for now/
-        :param applicant_count: The number of applicants.
+        Constructor for the campaigns class.
+        This function runs through a number of recruitment campaigns
+        to generate outcomes using optimal stopping.
+        :param applicant_count: The number of applicants in each campaign.
+        :param count: A unique identifier for each campaign.
         """
+        global i
+
         self.camp_id = count
         self.applicant_count = applicant_count
         self.applicant_pool = np.arange(applicant_count)
@@ -34,6 +38,7 @@ class Campaign:
 
         np.random.shuffle(self.applicant_pool)
 
+        # Process each applicant in the look phase.
         for i in range(self.look_length):
             if self.applicant_pool[i] < self.lowest_look_value:
                 self.lowest_look_value = self.applicant_pool[i]
@@ -42,6 +47,7 @@ class Campaign:
                 self.best_is_in_look_list = True
                 self.best_is_in_leap_list = False
 
+        # Process each applicant in the leap phase.
         for i in range(self.look_length, self.look_length + self.leap_length):
             if self.applicant_pool[i] < self.lowest_leap_value:
                 self.lowest_leap_value = self.applicant_pool[i]
@@ -55,6 +61,7 @@ class Campaign:
                 self.offered_to_index = self.lowest_leap_index
                 break
         else:
+            # Getting here means the job was offered to the last applicant.
             self.lowest_leap_index = i
             self.lowest_leap_value = self.applicant_pool[-1]
             self.offered_to_index = i
@@ -66,8 +73,12 @@ class Campaign:
         else:
             self.best_chosen = 0
 
-
     def to_dict(self):
+        """
+        Creates a dictionary from the class which, in turn, provides an easy
+        way to create a pandas dataframe from a list of classes.
+        :return: A dictionary of class attributes.
+        """
         return {
             'id': self.camp_id,
             'applicant_count': self.applicant_count,
@@ -80,5 +91,5 @@ class Campaign:
             'best_chosen': self.best_chosen,
         }
 
-
-
+    def __str__(self):
+        return "Recruitment campaign"
