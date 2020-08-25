@@ -5,7 +5,6 @@ import math
 class Campaign:
 
     def __init__(self, applicant_count, count, hire_last):
-
         """
         Constructor for the campaigns class.
         This function runs through a number of recruitment campaigns

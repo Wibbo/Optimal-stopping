@@ -17,11 +17,9 @@ st.write('')
 st.sidebar.markdown('## MORE INFORMATION')
 st.sidebar.markdown("<a href='https://medium.com/@matt_r_weaver/recruiting-in-a-rush-read-on-70a19087e3b6'>What is optimal stopping</a>", unsafe_allow_html=True)
 st.sidebar.markdown("<a href='https://github.com/Wibbo/Optimal-stopping'>The code is on GitHub</a>", unsafe_allow_html=True)
+st.sidebar.markdown("<a href='https://www.objectivity.co.uk'>Objectivity web site</a>", unsafe_allow_html=True)
 st.sidebar.markdown("<a href='https://www.streamlit.io/'>Read more about Streamlit here</a>", unsafe_allow_html=True)
 st.sidebar.markdown("Email mweaver@objectivity.co.uk")
-
-
-
 
 top_applicant_chosen = 0
 top_applicant_in_look_list = 0
@@ -55,9 +53,10 @@ top_chosen_percent = round(top_applicant_chosen / number_of_cycles * 100, 1)
 
 st.write('')
 st.write('## CAMPAIGN RESULTS')
+
 st.write(f'Number of recruitment campaigns: {number_of_cycles}')
 st.write(f'Number of applicants in each campaign: {number_of_applicants}')
-st.write(f'In total {offers_made} offers were made.')
+st.write(f'In total {offers_made} offers were made across {number_of_cycles} campaigns.')
 st.write(f'** The last applicant was chosen {last_chosen_percent}% of the time. **')
 st.write(f'** The best applicant was chosen {top_chosen_percent}% of the time. **')
 st.write('')
