@@ -7,6 +7,7 @@ import altair as alt
 st.write('# Recruitment with optimal stopping')
 
 st.sidebar.markdown('')
+st.sidebar.image('./images/Obj1.png', width=300)
 st.sidebar.markdown('## Application parameters')
 number_of_cycles = st.sidebar.slider('Number of campaigns', 100, 500, 300, 10)
 number_of_applicants = st.sidebar.slider('Number of applicants', 100, 500, 100, 10)
