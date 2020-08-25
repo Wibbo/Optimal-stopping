@@ -11,6 +11,7 @@ st.sidebar.markdown('## Application parameters')
 number_of_cycles = st.sidebar.slider('Number of campaigns', 100, 500, 300, 10)
 number_of_applicants = st.sidebar.slider('Number of applicants', 100, 500, 100, 10)
 show_details = st.sidebar.checkbox('Show details')
+hire_last = st.sidebar.checkbox('Hire last applicant?')
 st.write('')
 st.sidebar.markdown('## MORE INFORMATION')
 st.sidebar.markdown("<a href='https://github.com/Wibbo/Optimal-stopping'>The code is on GitHub</a>", unsafe_allow_html=True)
@@ -23,7 +24,7 @@ top_applicant_in_leap_list = 0
 top_applicant_last = 0
 offered_to_last = 0
 
-campaigns = [Campaign(number_of_applicants, count) for count in range(number_of_cycles)]
+campaigns = [Campaign(number_of_applicants, count, hire_last) for count in range(number_of_cycles)]
 df = pd.DataFrame.from_records([s.to_dict() for s in campaigns])
 
 df['best_app'] = df['best_chosen'].expanding().sum()

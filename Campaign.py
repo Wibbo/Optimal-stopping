@@ -4,7 +4,7 @@ import math
 
 class Campaign:
 
-    def __init__(self, applicant_count, count):
+    def __init__(self, applicant_count, count, hire_last):
 
         """
         Constructor for the campaigns class.
@@ -15,6 +15,8 @@ class Campaign:
         """
         global i
 
+        self.hire_last = hire_last
+        self.count = count
         self.camp_id = count
         self.applicant_count = applicant_count
         self.applicant_pool = np.arange(applicant_count)
@@ -62,11 +64,16 @@ class Campaign:
                 break
         else:
             # Getting here means the job was offered to the last applicant.
-            self.lowest_leap_index = i
-            self.lowest_leap_value = self.applicant_pool[-1]
-            self.offered_to_index = i
-            self.offered_to_value = self.lowest_leap_value
-            self.offered_to_last = True
+            if self.hire_last:
+                self.lowest_leap_index = i
+                self.lowest_leap_value = self.applicant_pool[-1]
+                self.offered_to_index = i
+                self.offered_to_value = self.lowest_leap_value
+                self.offered_to_last = True
+            else:
+                self.offered_to_index = -1
+                self.offered_to_value = -1
+                self.offered_to_last = False
 
         if self.offered_to_value == 0:
             self.best_chosen = 1
