@@ -23,6 +23,7 @@ top_applicant_in_look_list = 0
 top_applicant_in_leap_list = 0
 top_applicant_last = 0
 offered_to_last = 0
+offers_made = 0
 
 campaigns = [Campaign(number_of_applicants, count, hire_last) for count in range(number_of_cycles)]
 df = pd.DataFrame.from_records([s.to_dict() for s in campaigns])
@@ -37,6 +38,8 @@ for i in campaigns:
         top_applicant_in_look_list += 1
     if i.offered_to_last:
         offered_to_last += 1
+    if i.offer_made:
+        offers_made += 1
     if show_details:
         candidate_data.loc[i] = [i.camp_id, i.offered_to_index, i.offered_to_value, i.offer_made]
 
@@ -49,6 +52,7 @@ st.write('')
 st.write('## CAMPAIGN RESULTS')
 st.write(f'Number of recruitment campaigns: {number_of_cycles}')
 st.write(f'Number of applicants in each campaign: {number_of_applicants}')
+st.write(f'In total {offers_made} offers were made.')
 st.write(f'** The last applicant was chosen {last_chosen_percent}% of the time. **')
 st.write(f'** The best applicant was chosen {top_chosen_percent}% of the time. **')
 st.write('')
