@@ -28,7 +28,7 @@ campaigns = [Campaign(number_of_applicants, count, hire_last) for count in range
 df = pd.DataFrame.from_records([s.to_dict() for s in campaigns])
 
 df['best_app'] = df['best_chosen'].expanding().sum()
-candidate_data = pd.DataFrame(columns=('campaign', 'index', 'value'))
+candidate_data = pd.DataFrame(columns=('campaign', 'index', 'value', 'offered'))
 
 for i in campaigns:
     if i.offered_to_value == 0:
@@ -38,7 +38,7 @@ for i in campaigns:
     if i.offered_to_last:
         offered_to_last += 1
     if show_details:
-        candidate_data.loc[i] = [i.camp_id, i.offered_to_index, i.offered_to_value]
+        candidate_data.loc[i] = [i.camp_id, i.offered_to_index, i.offered_to_value, i.offer_made]
 
 candidate_data.set_index('campaign')
 

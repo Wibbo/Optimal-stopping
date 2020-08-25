@@ -23,6 +23,7 @@ class Campaign:
         self.look_for = 37
         self.look_length = math.ceil(applicant_count * self.look_for / 100)
         self.leap_length = applicant_count - self.look_length
+        self.offer_made = False
 
         self.lowest_look_value = applicant_count
         self.lowest_look_index = applicant_count
@@ -61,6 +62,7 @@ class Campaign:
             if self.lowest_leap_value < self.lowest_look_value:
                 self.offered_to_value = self.lowest_leap_value
                 self.offered_to_index = self.lowest_leap_index
+                self.offer_made = True
                 break
         else:
             # Getting here means the job was offered to the last applicant.
@@ -70,10 +72,12 @@ class Campaign:
                 self.offered_to_index = i
                 self.offered_to_value = self.lowest_leap_value
                 self.offered_to_last = True
+                self.offer_made = True
             else:
                 self.offered_to_index = -1
                 self.offered_to_value = -1
                 self.offered_to_last = False
+                self.offer_made = False
 
         if self.offered_to_value == 0:
             self.best_chosen = 1
@@ -99,4 +103,8 @@ class Campaign:
         }
 
     def __str__(self):
+        """
+        Override the string description for this class.
+        :return: A string describing the class.
+        """
         return "Recruitment campaign"
