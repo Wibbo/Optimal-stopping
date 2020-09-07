@@ -82,7 +82,7 @@ fig = px.histogram(offered_positions, x='offered_to_index', nbins=10,
 
 st.plotly_chart(fig)
 
-fig = px.histogram(offered_positions, x='offered_to_value', nbins=6,
+fig = px.histogram(offered_positions, x='offered_to_value', nbins=10,
                    labels={
                        'offered_to_value': 'Relative ranking',
                    },
