@@ -1,12 +1,7 @@
 import streamlit as st
 from Campaign import Campaign
 import pandas as pd
-import altair as alt
-import numpy as np
-import matplotlib.pyplot as plt
 import plotly_express as px
-from plotly.subplots import make_subplots
-import plotly.graph_objects as go
 
 
 # Setup the output screen.
@@ -21,7 +16,7 @@ show_details = st.sidebar.checkbox('Show details')
 hire_last = st.sidebar.checkbox('Hire last applicant?')
 st.write('')
 st.sidebar.markdown('## MORE INFORMATION')
-st.sidebar.markdown("<a href='https://medium.com/@matt_r_weaver/recruiting-in-a-rush-read-on-70a19087e3b6'>What is optimal stopping</a>", unsafe_allow_html=True)
+st.sidebar.markdown("<a href='https://www.matt-matters.co.uk/post/copy-of-recruiting-in-a-rush-read-on'>What is optimal stopping</a>", unsafe_allow_html=True)
 st.sidebar.markdown("<a href='https://github.com/Wibbo/Optimal-stopping'>The code is on GitHub</a>", unsafe_allow_html=True)
 st.sidebar.markdown("<a href='https://www.objectivity.co.uk'>Objectivity web site</a>", unsafe_allow_html=True)
 st.sidebar.markdown("Email mweaver@objectivity.co.uk")
