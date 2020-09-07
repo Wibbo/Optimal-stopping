@@ -4,7 +4,7 @@ import math
 
 class Campaign:
 
-    def __init__(self, applicant_count, count, hire_last):
+    def __init__(self, applicant_count, count, can_hire_last_applicant):
         """
         Constructor for the campaigns class.
         This function runs through a number of recruitment campaigns
@@ -14,7 +14,7 @@ class Campaign:
         """
         global i
 
-        self.hire_last = hire_last
+        self.can_hire_last_applicant = can_hire_last_applicant
         self.count = count
         self.camp_id = count
         self.applicant_count = applicant_count
@@ -33,7 +33,7 @@ class Campaign:
         self.offered_to_value = applicant_count
         self.offered_to_index = applicant_count
 
-        self.best_chosen = False
+        self.best_chosen = 0
         self.offered_to_last = False
         self.best_is_in_look_list = False
         self.best_is_in_leap_list = False
@@ -65,7 +65,7 @@ class Campaign:
                 break
         else:
             # Getting here means the job was offered to the last applicant.
-            if self.hire_last:
+            if self.can_hire_last_applicant:
                 self.lowest_leap_index = i
                 self.lowest_leap_value = self.applicant_pool[-1]
                 self.offered_to_index = i
@@ -107,3 +107,5 @@ class Campaign:
         :return: A string describing the class.
         """
         return "Recruitment campaign"
+
+

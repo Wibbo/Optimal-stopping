@@ -2,6 +2,12 @@ import streamlit as st
 from Campaign import Campaign
 import pandas as pd
 import altair as alt
+import numpy as np
+import matplotlib.pyplot as plt
+import plotly_express as px
+from plotly.subplots import make_subplots
+import plotly.graph_objects as go
+
 
 # Setup the output screen.
 st.write('# Recruitment with optimal stopping')
@@ -18,7 +24,6 @@ st.sidebar.markdown('## MORE INFORMATION')
 st.sidebar.markdown("<a href='https://medium.com/@matt_r_weaver/recruiting-in-a-rush-read-on-70a19087e3b6'>What is optimal stopping</a>", unsafe_allow_html=True)
 st.sidebar.markdown("<a href='https://github.com/Wibbo/Optimal-stopping'>The code is on GitHub</a>", unsafe_allow_html=True)
 st.sidebar.markdown("<a href='https://www.objectivity.co.uk'>Objectivity web site</a>", unsafe_allow_html=True)
-st.sidebar.markdown("<a href='https://www.streamlit.io/'>Read more about Streamlit here</a>", unsafe_allow_html=True)
 st.sidebar.markdown("Email mweaver@objectivity.co.uk")
 
 top_applicant_chosen = 0
@@ -31,8 +36,10 @@ offers_made = 0
 campaigns = [Campaign(number_of_applicants, count, hire_last) for count in range(number_of_cycles)]
 df = pd.DataFrame.from_records([s.to_dict() for s in campaigns])
 
-df['best_app'] = df['best_chosen'].expanding().sum()
-candidate_data = pd.DataFrame(columns=('campaign', 'index', 'value', 'offered'))
+average_interviews = df['offered_to_index'].mean()
+
+
+candidate_data = pd.DataFrame(columns=('campaign', 'index', 'best chosen', 'value', 'offered'))
 
 for i in campaigns:
     if i.offered_to_value == 0:
@@ -44,35 +51,52 @@ for i in campaigns:
     if i.offer_made:
         offers_made += 1
     if show_details:
-        candidate_data.loc[i] = [i.camp_id, i.offered_to_index, i.offered_to_value, i.offer_made]
+        candidate_data.loc[i] = [i.camp_id, i.offered_to_index, i.best_chosen, i.offered_to_value, i.offer_made]
 
 candidate_data.set_index('campaign')
 
 last_chosen_percent = round(offered_to_last / number_of_cycles * 100, 1)
 top_chosen_percent = round(top_applicant_chosen / number_of_cycles * 100, 1)
+people_in_look = round(df['look_length'][0], 0)
 
 st.write('')
 st.write('## CAMPAIGN RESULTS')
-
-st.write(f'Number of recruitment campaigns: {number_of_cycles}')
+st.write(f'In total {offers_made} job offers were made across {number_of_cycles} campaigns.')
 st.write(f'Number of applicants in each campaign: {number_of_applicants}')
-st.write(f'In total {offers_made} offers were made across {number_of_cycles} campaigns.')
-st.write(f'** The last applicant was chosen {last_chosen_percent}% of the time. **')
-st.write(f'** The best applicant was chosen {top_chosen_percent}% of the time. **')
-st.write('')
+st.write(f'Number of applicants in the look phase: {people_in_look}')
+
+st.write(f'** The last applicant was offered a job {last_chosen_percent}% of the time. **')
+
+st.write(f'** The best applicant was offered a job {top_chosen_percent}% of the time. **')
 st.write('')
 
-line = alt.Chart(df).mark_line().encode(
-    x='id',
-    y='best_app'
-)
-line.title = 'Times the best candidate was chosen'
-line.encoding.x.title = 'Current campaign'
-line.encoding.y.title = 'Sum of best candidate chosen'
-line
+offered_positions = df[df.offered_to_index > 0]
+offered_ranking = df[df.offered_to_value > -1]
+
+fig = px.histogram(offered_positions, x='offered_to_index', nbins=10,
+                   labels={
+                       'offered_to_index': 'Interview position',
+                   },
+                   title='Job offers made by interview position'
+                   )
+
+st.plotly_chart(fig)
+
+fig = px.histogram(offered_positions, x='offered_to_value', nbins=6,
+                   labels={
+                       'offered_to_value': 'Relative ranking',
+                   },
+                   title='Job offers made by relative ranking'
+                   )
+
+st.plotly_chart(fig)
+
+
 
 if show_details:
     st.write('## RECORD OF JOB OFFERS')
     st.dataframe(candidate_data.style.highlight_max(axis=0))
     st.write('Index is the order in which each applicant is interviewed, starting at zero. So an index of 32 means this is the 33rd applicant that was interviewed.')
     st.write('Value is the relative ranking of each applicant, zero being the best.')
+
+
