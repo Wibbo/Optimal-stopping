@@ -12,8 +12,7 @@ class Campaign:
         :param applicant_count: The number of applicants in each campaign.
         :param count: A unique identifier for each campaign.
         """
-        global i
-
+        self.count = count
         self.can_hire_last_applicant = can_hire_last_applicant
         self.count = count
         self.camp_id = count
@@ -106,6 +105,6 @@ class Campaign:
         Override the string description for this class.
         :return: A string describing the class.
         """
-        return "Recruitment campaign"
+        return "Campaign " + str(self.count)
 
 

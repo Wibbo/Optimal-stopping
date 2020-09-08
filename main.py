@@ -11,7 +11,7 @@ st.write('# Recruitment with optimal stopping')
 st.sidebar.markdown('')
 st.sidebar.image('./images/Obj1.png', width=300)
 st.sidebar.markdown('## Application parameters')
-number_of_cycles = st.sidebar.slider('Number of campaigns', 100, 500, 300, 10)
+number_of_campaigns = st.sidebar.slider('Number of campaigns', 100, 500, 300, 10)
 number_of_applicants = st.sidebar.slider('Number of applicants', 100, 500, 100, 10)
 show_details = st.sidebar.checkbox('Show details')
 hire_last = st.sidebar.checkbox('Hire last applicant?')
@@ -30,7 +30,7 @@ offered_to_last = 0
 offers_made = 0
 
 # Create and process each campaign.
-campaigns = [Campaign(number_of_applicants, count, hire_last) for count in range(number_of_cycles)]
+campaigns = [Campaign(number_of_applicants, count, hire_last) for count in range(number_of_campaigns)]
 df = pd.DataFrame.from_records([s.to_dict() for s in campaigns])
 average_interviews = df['offered_to_index'].mean()
 
@@ -51,13 +51,13 @@ for i in campaigns:
 
 candidate_data.set_index('campaign')
 
-last_chosen_percent = round(offered_to_last / number_of_cycles * 100, 1)
-top_chosen_percent = round(top_applicant_chosen / number_of_cycles * 100, 1)
+last_chosen_percent = round(offered_to_last / number_of_campaigns * 100, 1)
+top_chosen_percent = round(top_applicant_chosen / number_of_campaigns * 100, 1)
 people_in_look = round(df['look_length'][0], 0)
 
 st.write('')
 st.write('## CAMPAIGN RESULTS')
-st.write(f'In total {offers_made} job offers were made across {number_of_cycles} campaigns.')
+st.write(f'In total {offers_made} job offers were made across {number_of_campaigns} campaigns.')
 st.write(f'Number of applicants in each campaign: {number_of_applicants}')
 st.write(f'Number of applicants in the look phase: {people_in_look}')
 st.write(f'** The last applicant was offered a job {last_chosen_percent}% of the time. **')
@@ -92,5 +92,3 @@ if show_details:
     st.write('## RECORD OF JOB OFFERS')
     st.dataframe(candidate_data.style.highlight_max(axis=0))
     st.write(summary_text)
-
-
